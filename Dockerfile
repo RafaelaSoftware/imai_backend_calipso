@@ -1,20 +1,17 @@
-# Use the official Node.js image as the base image
-FROM node:14
+FROM node:18-alpine
 
-# Set the working directory inside the container
+#Create a app directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+#Install app dependencies
 COPY package*.json ./
 
-# Install dependencies
+#Run npm install
 RUN npm install
 
-# Copy the rest of the application code to the working directory
+#Bundle app souce
 COPY . .
 
-# Expose a port (if your application needs it)
-EXPOSE 3000
+EXPOSE 8080
 
-# Start the application
 CMD [ "npm", "start" ]
