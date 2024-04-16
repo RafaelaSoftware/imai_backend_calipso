@@ -68,7 +68,7 @@ const getTareaByCodigo = (request, response) => {
 
 const getTareasPorEmpleado = (request, response) => {
     const codigo = request.params.codigo
-    const query = `SELECT tarea as codigo, tarea_n as descripcion 
+    const query = `SELECT tarea as codigo, TAREA_N as descripcion 
         FROM VP_PIGOV2_EMPLEADO_TAREA 
         WHERE codigo = '${codigo}'`;
 
