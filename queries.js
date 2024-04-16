@@ -9,8 +9,9 @@ const pool = new Pool({
 
 const getEmpleadoByCodigo = (request, response) => {
     const codigo = request.params.codigo
-    const query = `SELECT codigo, descripcion FROM v_empleado WHERE activestatus = 0 and codigo = '${codigo}'`;
-    console.log(query);
+    const query = `SELECT codigo, descripcion 
+        FROM VP_PIGOV2_EMPLEADO 
+        WHERE codigo = '${codigo}'`;
 
     pool.query(query, (error, results) => {
         if (error) {
@@ -22,7 +23,10 @@ const getEmpleadoByCodigo = (request, response) => {
 
 const getProductoByCodigo = (request, response) => {
     const codigo = request.params.codigo
-    const query = `SELECT codigo, descripcion FROM v_producto WHERE activestatus = 0 and codigo = '${codigo}'`;
+    const query = `SELECT codigo, descripcion 
+        FROM v_producto 
+        WHERE activestatus = 0 
+        and codigo = '${codigo}'`;
 
     pool.query(query, (error, results) => {
         if (error) {
@@ -34,7 +38,10 @@ const getProductoByCodigo = (request, response) => {
 
 const getOrdenProduccionByCodigo = (request, response) => {
     const codigo = request.params.codigo
-    const query = `SELECT numerodocumento as codigo, nombre as descripcion FROM v_trsolicitud WHERE tipotransaccion_id = '{EDC2BC0F-F9CF-4D74-8742-CA8A2B7A264E}' and numerodocumento = '${codigo}'`;
+    const query = `SELECT numerodocumento as codigo, nombre as descripcion 
+        FROM v_trsolicitud 
+        WHERE tipotransaccion_id = '{EDC2BC0F-F9CF-4D74-8742-CA8A2B7A264E}' 
+        and numerodocumento = '${codigo}'`;
 
     pool.query(query, (error, results) => {
         if (error) {
@@ -46,7 +53,24 @@ const getOrdenProduccionByCodigo = (request, response) => {
 
 const getTareaByCodigo = (request, response) => {
     const codigo = request.params.codigo
-    const query = `SELECT codigo, descripcion FROM v_servicio WHERE activestatus = 0 and codigo = '${codigo}'`;
+    const query = `SELECT codigo, descripcion 
+        FROM v_servicio 
+        WHERE activestatus = 0 
+        and codigo = '${codigo}'`;
+
+    pool.query(query, (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
+const getTareasPorEmpleado = (request, response) => {
+    const codigo = request.params.codigo
+    const query = `SELECT tarea as codigo, tarea_n as descripcion 
+        FROM VP_PIGOV2_EMPLEADO_TAREA 
+        WHERE codigo = '${codigo}'`;
 
     pool.query(query, (error, results) => {
         if (error) {
@@ -62,4 +86,5 @@ module.exports = {
     getProductoByCodigo,
     getOrdenProduccionByCodigo,
     getTareaByCodigo,
+    getTareasPorEmpleado
 }

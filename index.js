@@ -31,6 +31,7 @@ app.get('/empleado/:codigo', db.getEmpleadoByCodigo)
 app.get('/producto/:codigo', db.getProductoByCodigo)
 app.get('/ordenProduccion/:codigo', db.getOrdenProduccionByCodigo)
 app.get('/tarea/:codigo', db.getTareaByCodigo)
+app.get('/tareasPorEmpleado/:codigo', db.getTareasPorEmpleado)
 
 
 app.listen(port, () => {
