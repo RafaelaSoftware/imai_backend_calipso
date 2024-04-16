@@ -9,7 +9,7 @@ const pool = new Pool({
 
 const getEmpleadoByCodigo = (request, response) => {
     const codigo = request.params.codigo
-    const query = `SELECT codigo, descripcion 
+    const query = `SELECT codigo, descripcion, inicio 
         FROM VP_PIGOV2_EMPLEADO 
         WHERE codigo = '${codigo}'`;
 
