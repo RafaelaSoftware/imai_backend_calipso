@@ -38,7 +38,7 @@ const getProductoByCodigo = (request, response) => {
 
 const getOrdenProduccionByCodigo = (request, response) => {
   const codigo = request.params.codigo;
-  const query = `SELECT codigo, descripcion, tarea, tarea_descripcion
+  const query = `SELECT codigo, descripcion, tarea, tarea_descripcion, horas_estimadas
         FROM VP_PIGOV2_ORDENPRODUCCION 
         WHERE codigo = '${codigo}'`;
 
