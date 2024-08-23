@@ -23,10 +23,9 @@ const getEmpleadoByCodigo = (request, response) => {
 
 const getProductoByCodigo = (request, response) => {
   const codigo = request.params.codigo;
-  const query = `SELECT codigo, descripcion 
-        FROM v_producto 
-        WHERE activestatus = 0 
-        and codigo = '${codigo}'`;
+  const query = `SELECT codigo, descripcion, tiene_certificado, certificado 
+        FROM VP_PIGOV2_PRODUCTO 
+        WHERE busqueda = '${codigo}'`;
 
   pool.query(query, (error, results) => {
     if (error) {
