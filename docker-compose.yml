@@ -19,5 +19,4 @@ services:
 networks:
   imai-network:
     driver: bridge
-  imai-network:
-    driver: bridge
+    
