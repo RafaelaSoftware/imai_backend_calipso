@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  # Servicio principal de la API
+  imai-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: imai-backend
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    env_file:
+      - .env
+    networks:
+      - imai-network
+
+networks:
+  imai-network:
+    driver: bridge
