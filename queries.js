@@ -7,13 +7,15 @@ const pool = new Pool({
   database: "db_calipso_imai",
 });
 
+// Use parameterized queries to avoid syntax errors and SQL injection
+
 const getEmpleadoByCodigo = (request, response) => {
   const codigo = request.params.codigo;
   const query = `SELECT codigo, descripcion, inicio 
         FROM VP_PIGOV2_EMPLEADO 
-        WHERE codigo = '${codigo}'`;
+        WHERE codigo = $1`;
 
-  pool.query(query, (error, results) => {
+  pool.query(query, [codigo], (error, results) => {
     if (error) {
       throw error;
     }
@@ -25,9 +27,9 @@ const getProductoByCodigo = (request, response) => {
   const codigo = request.params.codigo;
   const query = `SELECT codigo, descripcion, tiene_certificado, certificado 
         FROM VP_PIGOV2_PRODUCTO 
-        WHERE busqueda = '${codigo}'`;
+        WHERE busqueda = $1`;
 
-  pool.query(query, (error, results) => {
+  pool.query(query, [codigo], (error, results) => {
     if (error) {
       throw error;
     }
@@ -39,9 +41,9 @@ const getOrdenProduccionByCodigo = (request, response) => {
   const codigo = request.params.codigo;
   const query = `SELECT codigo, descripcion, tarea, tarea_descripcion, horas_estimadas
         FROM VP_PIGOV2_ORDENPRODUCCION 
-        WHERE codigo = '${codigo}'`;
+        WHERE codigo = $1`;
 
-  pool.query(query, (error, results) => {
+  pool.query(query, [codigo], (error, results) => {
     if (error) {
       throw error;
     }
@@ -54,9 +56,9 @@ const getTareaByCodigo = (request, response) => {
   const query = `SELECT codigo, descripcion 
         FROM v_servicio 
         WHERE activestatus = 0 
-        and codigo = '${codigo}'`;
+        and codigo = $1`;
 
-  pool.query(query, (error, results) => {
+  pool.query(query, [codigo], (error, results) => {
     if (error) {
       throw error;
     }
@@ -68,9 +70,9 @@ const getTareasPorEmpleado = (request, response) => {
   const codigo = request.params.codigo;
   const query = `SELECT tarea as codigo, TAREA_N as descripcion 
         FROM VP_PIGOV2_EMPLEADO_TAREA 
-        WHERE codigo = '${codigo}'`;
+        WHERE codigo = $1`;
 
-  pool.query(query, (error, results) => {
+  pool.query(query, [codigo], (error, results) => {
     if (error) {
       throw error;
     }
