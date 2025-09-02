@@ -20,9 +20,16 @@ app.use(
   })
 );
 
-app.get('/', (request, response) => {
-    response.json({ info: 'Node.js, Express, and Postgres API' })
-})
+const sayHello = async (req, res) => {
+  return res.status(200).json({
+    success: true,
+    message: "👋 🌏 Hola. Servicio Backend de Calipso para IMAI.",
+    version: "1.0.0",
+    timestamp: new Date().toISOString(),
+  });
+};
+
+app.get('/', sayHello); 
 
 
 app.get('/empleado/:codigo', db.getEmpleadoByCodigo)
@@ -38,5 +45,6 @@ app.get("/ordenProduccion/:codigo", db.getOrdenProduccionByCodigo);
 app.get("/tarea/:codigo", db.getTareaByCodigo);
 
 app.listen(port, () => {
-  console.log(`App running on port ${port}.`);
+  console.log(`🚀 Servidor ejecutándose en puerto ${port}`);
+  console.log(`📍 API disponible en: http://localhost:${port}`);
 });
